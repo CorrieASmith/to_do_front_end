@@ -24,10 +24,22 @@ describe('select list and display tasks', {:type => :feature}) do
   end
 end
 
+describe('add new tasks to a list', {:type => :feature}) do
+  it('allows user to add tasks to a list') do
+    test_list = List.new({:name => 'Work stuff', :id => nil})
+    test_list.save()
+    visit('/')
+    click_link(test_list.name())
+    fill_in('description', :with => 'finish project')
+    fill_in('due date', :with => '2015-9-1')
+    click_button('Add Task!')
+    expect(page).to have_content('finish project')
+  end
+end
 
 
-  #
-  # As a user, I want to see all of the lists that I have created so that I can manage them one at a time.
-  # As a user, I want to create new lists of different categories so that I can keep similar tasks together (phone calls, school work, house work, errands to run, bills to pay, etc)
-  # As a user, I want to select a single list and see the tasks for it.
+
+
+
+
   # As a user, I want to add tasks to a list.
