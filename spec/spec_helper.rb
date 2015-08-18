@@ -3,7 +3,7 @@ require('pg')
 require('task')
 require('list')
 
-DB = PG.connect({:dbname => 'my_database_test'})
+DB = PG.connect({:dbname => 'to_do_test'})
 
 RSpec.configure do |config|
   config.after(:each) do
@@ -13,6 +13,6 @@ end
 
 RSpec.configure do |config|
   config.after(:each) do
-    DB.exec("DELETE FROM list * ;")
+    DB.exec("DELETE FROM lists * ;")
   end
 end
