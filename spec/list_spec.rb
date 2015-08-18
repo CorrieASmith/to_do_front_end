@@ -33,4 +33,16 @@ describe(List) do
       expect(List.find(test_list2.id())).to(eq(test_list2))
     end
   end
+
+  describe('#tasks') do
+    it("returns an array of tasks for specific list") do
+      test_list = List.new({:name => "Eat Breakfast", :id => nil})
+      test_list.save()
+      test_task = Task.new({:description => "Eat Breakfast", :list_id => test_list.id, :due_date => '2015-4-01'})
+      test_task.save()
+      test_task2 = Task.new(:description => "Go to School", :list_id => test_list.id, :due_date => '1985-4-02')
+      test_task2.save()
+      expect(test_list.tasks()).to(eq([test_task, test_task2]))
+    end
+  end
 end
