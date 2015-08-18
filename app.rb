@@ -13,7 +13,8 @@ get '/' do
 end
 
 get('/list/:id') do
-
+  @list = List.find(params.fetch('id').to_i())
+  erb(:list)
 end
 
 post('/lists/new') do
@@ -23,7 +24,7 @@ post('/lists/new') do
   redirect('/')
 end
 
-post('/tasks/new') do
+post('/task/new') do
   description = params.fetch('description')
   due_date = params.fetch('due date')
   id = params.fetch('list id').to_i()
