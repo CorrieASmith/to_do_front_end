@@ -1,0 +1,20 @@
+<h2><%= @list.name() %>'s Tasks:</h2>
+
+<ul>
+  <% @list.tasks.each() do |task| %>
+  <li><%= task.description %></li>
+  <% end %>
+</ul>
+
+<form action="/task/new" method="post">
+  <input hidden value="<%= @list.id %>" name="list id" value="list id">
+
+  <label for="description" placeholder="e.g. Christmas shopping">Description:</label>
+  <input type="text" name="description" id="description">
+
+  <label for="due date" placeholder="e.g. 2001-4-12">Due Date:</label>
+  <input type="text" name="due date" id="due date">
+
+  <button type="submit" class="btn btn-primary btn-sm">Add Task!</button>
+
+</form>

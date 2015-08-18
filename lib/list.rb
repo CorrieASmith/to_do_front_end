@@ -29,4 +29,12 @@ class List
   define_method(:==) do |another_list|
     self.name().==(another_list.name()).&(self.id().==(another_list.id))
   end
+
+  define_singleton_method(:find) do |id|
+    List.all().each() do |list|
+      if list.id() == id
+        return list
+      end
+    end
+  end
 end

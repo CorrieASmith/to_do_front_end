@@ -23,4 +23,14 @@ describe(List) do
       expect(List.all()).to(eq([test_list]))
     end
   end
+
+  describe('.find') do
+    it('returns a list by its id') do
+      test_list = List.new({:name => "Shopping List", :id => nil})
+      test_list.save()
+      test_list2 = List.new({:name => "Homework", :id => nil})
+      test_list2.save()
+      expect(List.find(test_list2.id())).to(eq(test_list2))
+    end
+  end
 end
