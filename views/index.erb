@@ -1,5 +1,13 @@
 <h1>To Do App</h1>
 
+<p>Here are all your tasks:</p>
+
+<ul>
+  <% @tasks.not_done().each do |task| %>
+  <li><%= task.description %></li>
+  <% end %>
+</ul>
+
 <% if @lists.any?() %>
 
   <ul>
@@ -21,3 +29,7 @@
 
   <button type="submit" class="btn btn-primary btn-sm">Add list</button>
 </form>
+
+<% @tasks.each() do |task| %>
+  <li><%= task.description %> <a href="/tasks/<%= task.id() %>/edit">Update this task's description</a></li>
+<% end %>

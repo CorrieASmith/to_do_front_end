@@ -2,19 +2,21 @@
 
 <ul>
   <% @list.tasks.each() do |task| %>
-  <li><%= task.description %> - <%= Date.parse(task.due_date()).strftime("%B %e, %Y") %></li>
+  <li><%= task.description %> - <%= task.due_date() %></li>
   <% end %>
 </ul>
 
 <form action="/task/new" method="post">
-  <input hidden value="<%= @list.id %>" name="list id" value="list id">
+  <input hidden value="<%= @list.id.to_i %>" name="list id" value="list id">
 
   <label for="description">Description:</label>
   <input type="text" placeholder="e.g. Christmas shopping" name="description" id="description">
 
   <label for="due date">Due Date:</label>
-  <input type="text" placeholder="e.g. 2001-4-12" name="due date" id="due date">
+  <input type="datetime" placeholder="e.g. 2001-4-12" name="due date" id="due date">
 
   <button type="submit" class="btn btn-primary btn-sm">Add Task!</button>
+  </br>
+  <a href = "/">Home</a>
 
 </form>

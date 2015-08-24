@@ -1,8 +1,7 @@
 ENV['RACK_ENV'] = 'development'
-
+require('sinatra/activerecord')
 require('sinatra')
 require('sinatra/reloader')
-require('sinatra/activerecord')
 also_reload('lib/**/*.rb')
 require('./lib/list/')
 require('./lib/task/')
@@ -11,6 +10,7 @@ require('pg')
 
 get '/' do
   @lists = List.all()
+  @tasks = Task.all()
   erb(:index)
 end
 
@@ -34,4 +34,18 @@ post('/task/new') do
   task = Task.new({:description => description, :due_date => due_date, :list_id => id})
   task.save()
   redirect('/list/' + id.to_s())
+end
+
+get('/tasks/:id/edit') do
+  @task = Task.find(params.fetch("id").to_i())
+  erb(:task_edit)
+end
+
+patch("/tasks/:id") do
+  description = params.fetch("description")
+  @task = Task.find(params.fetch("id").to_i())
+  @task.update({:description => description})
+  @tasks = Task.all()
+  @lists = List.all()
+  erb(:index)
 end
