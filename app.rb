@@ -2,12 +2,11 @@ ENV['RACK_ENV'] = 'development'
 
 require('sinatra')
 require('sinatra/reloader')
-require('sinatra-activerecord')
+require('sinatra/activerecord')
+also_reload('lib/**/*.rb')
 require('./lib/list/')
 require('./lib/task/')
-also_reload('lib/**/*.rb')
-require("pg")
-
+require('pg')
 
 
 get '/' do
