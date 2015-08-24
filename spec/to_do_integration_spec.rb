@@ -2,6 +2,7 @@ require('capybara/rspec')
 require('./app')
 Capybara.app = Sinatra::Application
 set(:show_exceptions, false)
+require('spec_helper')
 
 describe('the create new list path', {:type => :feature}) do
   it('allows user to add a new list') do
