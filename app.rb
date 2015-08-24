@@ -6,9 +6,10 @@ also_reload('lib/**/*.rb')
 require('./lib/list/')
 require('./lib/task/')
 require('pg')
+require('pry')
 
 
-get '/' do
+get ('/') do
   @lists = List.all()
   @tasks = Task.all()
   erb(:index)
@@ -31,8 +32,10 @@ post('/task/new') do
   due_date = params.fetch('due date')
   id = params.fetch('list id').to_i()
   @list = List.find(id)
-  task = Task.new({:description => description, :due_date => due_date, :list_id => id})
+  task = Task.new({:description => description, :due_date => due_date, :list_id => id, :done => false})
   task.save()
+  # binding.pry
+
   redirect('/list/' + id.to_s())
 end
 
@@ -44,8 +47,15 @@ end
 patch("/tasks/:id") do
   description = params.fetch("description")
   @task = Task.find(params.fetch("id").to_i())
-  @task.update({:description => description})
+  done = params.fetch("done")
+  if done == nil
+    @task.update({:description => description})
+  else
+    @task.update({:description => description, :done => true })
+  end
+  @task.save()
   @tasks = Task.all()
   @lists = List.all()
-  erb(:index)
+  redirect("/")
+
 end
